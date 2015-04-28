@@ -1,0 +1,22 @@
+{
+    "id" : "marvweb",
+    "name" : "Test Decision System",
+    "version" : "1.0",
+    "desc" : "The Web UI of Test Decision System",
+    "globalSearch" : false,
+    "serviceUrl" : "http://nkgmarv.eng.citrite.net/marv2/rest",
+    "debugServiceUrl" : "http://localhost:8080/MirrorRest/rest",
+    "debugServiceUrl" : "http://localhost:8080/gstds/rest",
+    "enableJSONP" : false,
+    "logoClass" : "logo",
+    "routers" :[{
+        "name": "project",
+        "url": "/project",
+        "children" : [{
+          "name" : "detail",
+          "url" : "/:project?build&base",
+          "controller": "marvweb.detailCtrl",
+          "template" : false
+        }]
+    }]
+}

@@ -1,0 +1,84 @@
+<div ng-controller="marvweb.projectsCtrl" class="row tds-panel">
+
+  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 panel tds-panel-left" ng-show="!maximumDetails">
+    <div tree-directive tree-config="projectTreeConfig" on-init="onInitTree(tree)" on-select-node="onSelectTreeNode(evt, data)"></div>
+  </div>
+
+  <div ng-class="{false : 'col-xs-10 col-sm-10 col-md-10 col-lg-10', true : 'col-xs-12 col-sm-12 col-md-12 col-lg-12'}[maximumDetails]" class="tds-panel-center">
+
+    <i class="fa full-size-toggle-details clickable" ng-class="{true: 'fa-chevron-right', false: 'fa-chevron-left'}[maximumDetails]"
+                 ng-click="toggleMaximumDetails()"></i>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <div class="row">
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <h5>{{welcome}}</h5>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <h5>{{selectedBuild.summaryMessage}}</h5>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4">
+
+            <div class="btn-group pull-right hide-btn margin-left-15" dropdown>
+                <button type="button" class="btn btn-xs dropdown-toggle" dropdown-toggle>
+                  <i class="fa fa-gears fa-lg"></i>
+                  <span class="caret margin-left-5"></span>
+                </button>
+                <ul class="dropdown-menu rev-btn-dropdown" role="menu">
+                  
+                  <li role="presentation" ng-repeat="conf in selectedBuild.config">
+                      <a ng-click="toggleConf($event, conf)">
+                        <i class="fa" ng-class="{true:'fa-toggle-on', false:'fa-toggle-off'}[conf.value]"></i> {{conf.label}}
+                      </a>
+                  </li>
+                  
+                  <li role="presentation" class="divider"></li>
+
+                  <li role="presentation" ng-repeat="col in selectedBuild.colConfig">
+                      <a ng-click="toggleCol($event, col)">
+                        <i class="fa" ng-class="{true:'fa-toggle-on', false:'fa-toggle-off'}[col.bShow]"></i> {{col.name}}
+                      </a>
+                  </li>
+
+                </ul>
+            </div>
+
+            <div class="btn-group pull-right compare-btn margin-right-15" dropdown>
+                <button type="button" class="btn btn-xs dropdown-toggle" dropdown-toggle>
+                    <i class="compare-btn margin-right-10"></i>
+                    <span class="caret margin-left-5"></span>
+                </button>
+
+                <!-- TODO: implement it as a directive -->
+                <ul class="dropdown-menu rev-btn-dropdown" role="menu">
+                    <li ng-repeat="base in selectedBuild.baseList"
+                      ng-class="{active: base.id == selectedBuild.base.id}">
+
+                      <a ng-click="compare(base)" >{{base.text}}</a>
+                    </li>
+                </ul>
+
+            </div>
+
+            <div class="search-box pull-right">
+              <i class="fa fa-md fa-fw fa-search search-icon"></i>
+              <input type="text" id="txtSearch" ng-model="selectedBuild.globalFilterText" ng-change="globalFilter()">
+            </div>
+          </div>
+
+          </div>
+      </div>
+
+    <div class="panel-body">
+      <div id="details-grid" slickgrid options="gridOptions"></div>
+    </div>
+
+  </div>
+
+    <!-- the ui-view just used to include a sub controller -->
+    <div ui-view></div>
+</div>
