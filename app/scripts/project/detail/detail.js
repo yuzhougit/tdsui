@@ -32,14 +32,17 @@ define(['angular'], function(angular) {
 
         if($stateParams['build']) {
 
+            // get projectId and buildId form url params 
             var projectId = $stateParams['project'];
             var buildId = $stateParams['build'];
-
 
             $scope.selectedBuild.isLoading = true;
             $scope.$emit('loading');
 
             marvwebUtil.getProjectTree().then(function(projectTreeData){
+
+                // TODO: check if projectTreeData is valid
+
                 for(var i=0, len=projectTreeData.length; i<len; i++) {
 
                     if(projectTreeData[i].id == projectId) {
@@ -48,13 +51,24 @@ define(['angular'], function(angular) {
                     }
                 }
 
+                // TODO: check if the projectId is found in projectTreeData
+
                 marvwebUtil.getBuildTree(projectId).then(function(buildTreeData) {
+
                     for(var i=0, len=buildTreeData.length; i<len; i++) {
 
                         if(buildTreeData[i].id == buildId) {
                             $scope.selectedBuild['build'] = buildTreeData[i].build;
                             break;
                         }
+                    }
+
+                    // validate if the buildId in param is not found in backend
+                    if(i == len) {
+                        _log_.e('build with id ' + buildId + ' is not found');
+                        $scope.$emit('loaded');
+                        $scope.selectedBuild.isLoading = false;
+                        return;
                     }
 
                     var baseList = [];
@@ -84,6 +98,9 @@ define(['angular'], function(angular) {
                     }
 
                     buildDetail.then(function(data) {
+
+                        if(!data) return;
+
                         updateColumns(data.langs);
                         // update grid data
                         $scope.selectedBuild['originalData'] = data.data;

@@ -86,11 +86,19 @@ define([], function(){
                         .one("build", buildId)
                         .get()
                         .then(function(data) {
-                            marvData[buildId] = {
-                                langs: data.langs,
-                                data: data.data
-                            };
-                            return marvData[buildId];
+                            if(data) {
+
+                                if(data.errMsg) {
+                                    _log_.e(data.errMsg);
+                                    return;
+                                }
+
+                                marvData[buildId] = {
+                                    langs: data.langs,
+                                    data: data.data
+                                };
+                                return marvData[buildId];
+                            }
                         });
                     } else {
                         return $q(function(resolve) {

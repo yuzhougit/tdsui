@@ -5,8 +5,8 @@
     "desc" : "The Web UI of Test Decision System",
     "globalSearch" : false,
     "serviceUrl" : "http://nkgmarv.eng.citrite.net/marv2/rest",
-    "debugServiceUrl" : "http://localhost:8080/MirrorRest/rest",
     "debugServiceUrl" : "http://localhost:8080/gstds/rest",
+    "debugServiceUrl" : "http://nkgmarv.eng.citrite.net/gstds/rest",
     "enableJSONP" : false,
     "logoClass" : "logo",
     "routers" :[{
