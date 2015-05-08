@@ -109,7 +109,7 @@ module.exports = function (grunt) {
                     open : {
                         target: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>?debug=<%= yeoman.id %>'
                     },
-//                    keepalive: true,
+                    //keepalive: true,
                     middleware: function (connect) {
                         return [
                             connect.static('.tmp')
@@ -121,13 +121,12 @@ module.exports = function (grunt) {
                 options: {
                     port: 9001,
                     middleware: function (connect) {
-                        return [
-                            connect.static('test')
-//                            connect().use(
-//                                '/bower_components',
-//                                connect.static('./bower_components')
-//                            ),
-//                            connect.static('modules/<%= yeoman.id %>')
+                        return [connect.static('test')
+                           // connect().use(
+                           //     '/bower_components',
+                           //     connect.static('./bower_components')
+                           // ),
+                           // connect.static('modules/<%= yeoman.id %>')
                         ];
                     }
                 }

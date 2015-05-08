@@ -1,5 +1,5 @@
 {
-    "id" : "marvweb",
+    "id" : "tdsui",
     "name" : "Test Decision System",
     "version" : "1.0",
     "desc" : "The Web UI of Test Decision System",
@@ -9,13 +9,15 @@
     "debugServiceUrl" : "http://nkgmarv.eng.citrite.net/gstds/rest",
     "enableJSONP" : false,
     "logoClass" : "logo",
+    "topNav" : true,
+    "nav" : "views/templates/navMenu.html",
     "routers" :[{
-        "name": "project",
-        "url": "/project",
+        "name": "home",
+        "url": "/home",
         "children" : [{
           "name" : "detail",
-          "url" : "/:project?build&base",
-          "controller": "marvweb.detailCtrl",
+          "url" : "?project&build&base",
+          "controller": "tdsui.detailCtrl",
           "template" : false
         }]
     }]

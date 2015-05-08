@@ -1,9 +1,8 @@
-define(['angular','./util', './dataHelper', './gridHelper'], 
-    function(angular, util, dataHelper, gridHelper) {
+define(['angular','./util', './dataHelper', './gridHelper', '../constant'], function(angular, util, dataHelper, gridHelper, constant) {
 
-    _log_.d("Enter into the function to return marvweb.services module");
+	var appId = constant.appId;
 
-    return angular.module("marvweb.services", [])
-    .factory('marvweb.utility', dataHelper)
-    .factory('marvweb.gridhelper', gridHelper);
+	return angular.module(appId + '.services', [])
+	.factory(appId + '.dataHelper', dataHelper)
+	.factory(appId + '.gridHelper', gridHelper);
 });

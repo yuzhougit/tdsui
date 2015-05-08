@@ -1,0 +1,1 @@
+1. do not use module name in html files directly, by using a placeholder and replace it with grunt before deploy

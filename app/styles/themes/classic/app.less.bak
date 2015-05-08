@@ -1,0 +1,221 @@
+@import 'library';
+@tds-panel-height : 680px;
+
+.app.classic {
+  
+  &.tdsui, .tdsui {
+
+    .logo {
+      & > div {
+        background: url("images/logo.png") no-repeat center;
+        background-size: contain;
+        width: 40px;
+        height: 40px;
+        margin-left: -5px;
+        margin-top: 5px;
+      }
+    }
+
+    // the panel to show main content
+    .tds-main-panel {
+      margin-top: 5px;
+    }
+
+    .tds-panel {
+
+      & .tds-panel-left {
+        background-color: transparent;
+        padding: 0 0 0 10px;
+
+        & > div {
+          background-color: #fff;
+
+          & .jstree {
+            height: 680px;
+            overflow: hidden;
+          }
+        }
+      }
+
+      & .tds-panel-center {
+        & .panel-body {
+          padding: 0px;
+        }
+      }
+    }
+
+    #details-grid {
+
+      height: @tds-panel-height;
+      width: 100%;
+
+      & .slick-headerrow {
+        overflow: hidden !important;
+      }
+    }
+
+    
+
+    .loading {
+      background: rgba(0,0,0,.5) url('images/ajax-loader.gif') no-repeat;
+      background-position: center; 
+      width:100%;
+      height:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:999;
+    }
+
+    .error {
+      background: url("./images/error.png") no-repeat center;
+      width: 100%;
+      height: 16px;
+      display: block;
+      margin-top: 3px;
+      cursor: pointer;
+    }
+
+    .warning {
+      background: url("./images/warning.png") no-repeat center;
+      width: 100%;
+      height: 16px;
+      display: block;
+      margin-top: 3px;
+      cursor: pointer;
+    }
+
+    .changed {
+      color: red;
+      font-weight: bold;
+    }
+
+    .hightlight {
+      background: pink;
+    }
+
+    li.checkbox, li.radio{
+      display:block !important;
+      margin-left: 10px;
+      padding: 2px 0px;
+    }
+
+    .tooltip-inner {
+      text-align: left;
+      max-width: 350px;
+
+      a {
+        &:link {
+          color: yellow;
+        }
+        &:visited {
+          color: green;
+        }
+      }
+    }
+
+    @media (min-width: @screen-lg-min) { 
+      .full-size-toggle-details {
+        position: absolute;
+        left: 0px;
+        top: 350px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: @screen-md-max) {
+      .full-size-toggle-details{
+        display: none;
+      }
+    }
+
+    .search-box {
+      margin-top: -5px;
+      margin-right: 15px;
+      margin-bottom: -5px;
+
+      & > input {
+        width: 250px;
+      }
+    }
+
+    i.search-icon {
+      position: absolute;
+      top: 1px;
+      right: 125px;
+      color: #333333;
+      font-size: 14px !important;
+    }
+
+    .config-btn, .compare-btn, .hide-btn {
+      position: relative;
+      height: 15px;
+      top: -3px;
+
+      button {
+        color: @common-color;
+        box-shadow: none;
+        background: none;
+        border: none;
+        outline: none;
+      }
+    }
+
+    .compare-btn {
+      background: url("./images/icon_compare.png") no-repeat;
+      width: 15px;
+      height: 17px;
+    }
+    
+    .panel-control-splitter {
+      height: 32px;
+      border-left: 1px solid #ddd;
+      position: absolute;
+      top: -6px;
+      &.zero {
+        right: 105px;
+      }
+      &.first {
+        right: 75px;
+      }
+      &.second {
+        right: 45px;
+      }
+      &.last {
+        right: 15px;
+      }
+    }
+    
+    .toolbar-icon {
+      width: 30px;
+      cursor: pointer;
+    }
+    
+    .data-panel {
+      .ngRow.odd {
+        background-color: #fefefe;
+      }
+
+      .ngViewport {
+       // overflow-x: hidden;
+        .progress {
+          margin-top: 2px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    .data-view {
+
+      .main-port {
+        min-height: 780px;
+      }
+    }
+
+    .admin {
+      .common-tab-content {
+        min-height: 780px;
+      }
+    }
+  }
+}

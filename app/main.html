@@ -1,9 +1,10 @@
-<div ng-controller="marvwebCtrl" class="tds-main-panel">
+<div ng-controller="tdsuiCtrl" class="tds-root">
 
-  <div class="row ng-class: isLoading?'loading':'';"></div>
-  <div ui-view class="container-fluid tds-main-content">{{welcome}}</div>
+  <!-- <div class="row ng-class: isLoading?'loading':'';"></div> -->
+  
+  <div ui-view class="container-fluid tds-view">{{welcome}}</div>
 
-<!--
+  <!--
   <div id="navigator" class="row">
       <ol class="breadcrumb no-margin-bottom" style="background-color:inherit">
         <li ng-repeat="item in navigators">
@@ -11,16 +12,7 @@
           <span ng-if="item.href == undefined">{{item.label}}</span>
         </li>
       </ol>
-  </div>-->
-  <!--
-
-    <pre ng-hide="!debug">
-      <button popover-placement="top" popover="On the Top!" class="btn btn-default">Top</button>
-      
-      $state = {{$state.current.name}}
-      $stateParams = {{$stateParams}}
-      $state full url = {{ $state.$current.url.source }}
-    </pre>
+  </div>
   -->
-    
+  
 </div>

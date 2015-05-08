@@ -1,0 +1,26 @@
+<div ng-controller="tdsui.homeCtrl" class="panel panel-default tds-home-panel">
+	<div class="panel-heading">
+		<h3 class="panel-title pull-left">Build:</h3>
+		<div class="dropdown pull-left" dropdown on-toggle="toggled(open)">
+			<a href class="dropdown-toggle" dropdown-toggle title="click to select one build">
+				{{selectedBuild.buildLabel}}<span class="caret">
+			</a>
+			<ul class="dropdown-menu" role="menu" ng-click="$event.stopPropagation()">
+				<div tree-directive tree-config="projectTreeConfig" on-init="onInitTree(tree)" on-select-node="onSelectTreeNode(evt, data)"></div>
+			</ul>
+	    </div>
+		<h3 class="panel-title pull-left" ng-show="selectedBuild.base">Update since:</h3>
+		<h3 class="panel-title pull-right">Alert lines: <span class="badge">42</span></h3>
+		<h3 class="panel-title pull-right" ng-show="selectedBuild.base">Updated lines: <span class="badge">42</span></h3>
+		<div class="clearfix"></div>
+	</div>
+	
+	<div class="panel-body">
+		<div>
+			<div class="panel-heading">
+				<div class="clearfix" ui-view></div>	
+			</div>
+			<div class="panel-body" slickgrid options="gridOptions"></div>
+		</div>
+	</div>
+</div>
