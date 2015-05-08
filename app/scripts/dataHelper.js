@@ -5,6 +5,7 @@ define([], function(){
                      Restangular) {
 
                 var projectTreeData = [];
+                var projectMap = {};
                 var buildTreeData = {};
                 var marvData = {};
 
@@ -13,13 +14,19 @@ define([], function(){
                         + proj.product + ' ' + proj.platform;
                 }
 
-                var getProjectTree = function() {
-                    if(!projectTreeData || projectTreeData.length == 0) {
+                var getProject = function(id) {
+
+                    return projectMap[id];
+                }
+
+                var getProjectTree = function(force) {
+                    if(force || !projectTreeData || projectTreeData.length == 0) {
 
                         return Restangular.all('project')
                         .getList().then(function(data){
 
                             projectTreeData = [];
+                            projectMap = {};
 
                             angular.forEach(data, function(proj){
 
@@ -31,7 +38,7 @@ define([], function(){
                                     'children': true,
                                     'text' : projName,
                                     'icon' : "fa fa-folder-o",
-                                    'project': proj
+                                    'project': (projectMap[proj.id] = proj)
                                 });
 
                             });
@@ -133,6 +140,7 @@ define([], function(){
                 };
 
                 return {
+                    getProject: getProject,
                     getProjectLabel: getProjectLabel,
                     getProjectTree: getProjectTree,
                     getBuildTree: getBuildTree,

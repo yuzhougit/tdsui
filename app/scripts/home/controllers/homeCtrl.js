@@ -9,11 +9,11 @@ define(['angular', '../../../constant'], function(angular,constant){
 
 		// current build config options
         $scope.selectedBuild = {
-            isLoading: false,
             project: null,
             build: null,
             buildLabel: '{Please select a build from dropdown tree}',
             base: null,
+            baseList: [],
             config: [{
                 "label": "Show Images Only",
                 "value": false
@@ -70,10 +70,11 @@ define(['angular', '../../../constant'], function(angular,constant){
 
         	var node;
             if(data.action == "select_node" && (node = data.node.original) && node.pid) {
-            	var newBuild = node.build;
+            	
+                var newBuild = node.build;
             	var oldBuild = $scope.selectedBuild.build;
 
-            	if($scope.selectedBuild.isLoading || (oldBuild && oldBuild.id == newBuild)) {
+            	if($scope.isLoading || (oldBuild && oldBuild.id == newBuild.id)) {
             		return;
             	}
 
@@ -81,6 +82,15 @@ define(['angular', '../../../constant'], function(angular,constant){
             	var project = parent.original.project;
 
             	_log_.d('Project: ' + project.id + ', Build: ' + newBuild.id);
+                
+                //reset info in selectedBuild
+                $scope.selectedBuild = angular.extend({}, $scope.selectedBuild, {
+                    project: null,
+                    build: null,
+                    buildLabel: '{Please select a build from dropdown tree}',
+                    base: null,
+                    baseList: []
+                });
 
                	// go to detail 
                 $state.go(appId + "Detail", {

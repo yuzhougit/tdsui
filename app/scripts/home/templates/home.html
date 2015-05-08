@@ -1,7 +1,7 @@
 <div ng-controller="tdsui.homeCtrl" class="panel panel-default tds-home-panel">
 	<div class="panel-heading">
 		<h3 class="panel-title pull-left">Build:</h3>
-		<div class="dropdown pull-left" dropdown on-toggle="toggled(open)">
+		<div class="dropdown pull-left" dropdown on-toggle="">
 			<a href class="dropdown-toggle" dropdown-toggle title="click to select one build">
 				{{selectedBuild.buildLabel}}<span class="caret">
 			</a>
@@ -9,7 +9,17 @@
 				<div tree-directive tree-config="projectTreeConfig" on-init="onInitTree(tree)" on-select-node="onSelectTreeNode(evt, data)"></div>
 			</ul>
 	    </div>
-		<h3 class="panel-title pull-left" ng-show="selectedBuild.base">Update since:</h3>
+		<h3 class="panel-title pull-left" ng-show='selectedBuild.baseList.length'>Update since:</h3>
+		<div class="dropdown pull-left" ng-show='selectedBuild.baseList.length' dropdown on-toggle="">
+			<a href class="dropdown-toggle" dropdown-toggle title="click to select one build">
+				{{selectedBuild.base.build || '{Select one build}'}}<span class="caret">
+			</a>
+			<ul class="dropdown-menu" role="menu" ng-click="">
+				<li ng-repeat="base in selectedBuild.baseList" ng-class="{active: base.id == selectedBuild.base.id}">
+				<a ng-click="compare(base)" >{{base.build}}</a>
+				</li>
+			</ul>
+	    </div>
 		<h3 class="panel-title pull-right">Alert lines: <span class="badge">42</span></h3>
 		<h3 class="panel-title pull-right" ng-show="selectedBuild.base">Updated lines: <span class="badge">42</span></h3>
 		<div class="clearfix"></div>

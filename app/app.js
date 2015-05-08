@@ -21,9 +21,6 @@ define(['angular',
         }]).run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
             // run function of module
         }]).controller(moduleName + 'Ctrl', ['$scope', '$element', '$state', '$stateParams','$q', appId+'.dataHelper', 'CommonUtil', function($scope, $element, $state,$stateParams,$q, dataHelper, CommonUtil) {
-            // root controlle of module
-
-            console.dir(CommonUtil);
 
             // process event when state change
             $scope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
@@ -42,12 +39,16 @@ define(['angular',
                 }
             });
 
+            $scope.isLoading = false;
+
             $scope.$on("loading", function() {
                 CommonUtil.indicator(appId, '', null, 'lg');
+                $scope.isLoading = true;
             });
 
             $scope.$on("loaded", function() {
                 CommonUtil.indicator(appId, '', null, 'lg');
+                $scope.isLoading = false;
             });
 
         }]);
