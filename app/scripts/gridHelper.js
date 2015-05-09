@@ -4,6 +4,11 @@ define([],function(){
 
         var showLongest = false;
 
+        var refreshSize = function(grid) {
+            
+            return grid && grid.resizeCanvas();
+        };
+
         var setShowLongest = function(show) {
             showLongest = show;
         };
@@ -67,7 +72,17 @@ define([],function(){
                     return keyData? keyData.key : "";
                 },
                 formatter: function(row, cell, cellData, columnDef, rowData) {
-                    return cellData.key;
+                    var content = '<div'
+                    +' tooltip-placement="auto top"'
+                    +' tooltip-append-to-body="true"'
+                    +' tooltip-html-unsafe="'
+                    + '<span class=\'tooltip-in-slickgrid\'>'
+                    + cellData.key 
+                    + '</span>'
+                    + '">'
+                    + cellData.key
+                    + '</div>';
+                    return content;
                 }
             };
         };

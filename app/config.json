@@ -1,12 +1,11 @@
 {
     "id" : "tdsui",
-    "name" : "Test Decision System",
+    "name" : "GS Test Decision System",
     "version" : "1.0",
     "desc" : "The Web UI of Test Decision System",
     "globalSearch" : false,
     "serviceUrl" : "http://nkgmarv.eng.citrite.net/marv2/rest",
     "debugServiceUrl" : "http://localhost:8080/gstds/rest",
-    "debugServiceUrl" : "http://nkgmarv.eng.citrite.net/gstds/rest",
     "enableJSONP" : false,
     "logoClass" : "logo",
     "topNav" : true,

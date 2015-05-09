@@ -20,17 +20,46 @@
 				</li>
 			</ul>
 	    </div>
-		<h3 class="panel-title pull-right">Alert lines: <span class="badge">42</span></h3>
-		<h3 class="panel-title pull-right" ng-show="selectedBuild.base">Updated lines: <span class="badge">42</span></h3>
+		<h3 class="panel-title pull-right">Alert lines: <span class="badge bg-danger">{{selectedBuild.alertLines}}</span></h3>
+		<h3 class="panel-title pull-right" ng-show="selectedBuild.base">Updated lines: <span class="badge">{{selectedBuild.updatedLines}}</span></h3>
 		<div class="clearfix"></div>
 	</div>
 	
 	<div class="panel-body">
-		<div>
+		<div class="tds-home-detail-panel">
 			<div class="panel-heading">
+				<form class="form-inline pull-left" role="search">
+					<div class="form-group form-group-sm">
+						<label class="control-label" for="grid-global-serach">Global Search:</label>
+						<input id="grid-global-serach" type="text" class="form-control input-sm" placeholder="Input text" ng-model="selectedBuild.globalFilterText" ng-change="globalFilter()">
+					</div>
+				</form>
+				<div class="dropdown pull-right" dropdown>
+					<a href class="dropdown-toggle" dropdown-toggle title="click to open setting menu">
+						<i class="fa fa-gears fa-lg"></i> <span class="caret">
+					</a>
+					<ul class="dropdown-menu rev-btn-dropdown" role="menu">
+
+						<li role="presentation" ng-repeat="conf in selectedBuild.config">
+							<a ng-click="toggleConf($event, conf)">
+								<i class="fa" ng-class="{true:'fa-toggle-on', false:'fa-toggle-off'}[conf.value]"></i> {{conf.label}}
+							</a>
+						</li>
+
+						<li role="presentation" class="divider"></li>
+
+						<li role="presentation" ng-repeat="col in selectedBuild.colConfig">
+							<a ng-click="toggleCol($event, col)">
+								<i class="fa" ng-class="{true:'fa-toggle-on', false:'fa-toggle-off'}[col.bShow]"></i> {{col.name}}
+							</a>
+						</li>
+
+					</ul>
+				</div>
+				<div class="summary_info pull-right" id="summary-info" role="status">Showing <strong>{{selectedBuild.filterLength}}</strong> of <strong>{{selectedBuild.originalData.length}}</strong> keys</div>
 				<div class="clearfix" ui-view></div>	
 			</div>
-			<div class="panel-body" slickgrid options="gridOptions"></div>
+			<div id="detail-grid" class="panel-body" slickgrid resizeable ng-style="{height: gridHeight}" options="gridOptions"></div>
 		</div>
 	</div>
 </div>

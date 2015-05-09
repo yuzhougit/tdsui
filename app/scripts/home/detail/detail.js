@@ -2,7 +2,7 @@ define(['angular', '../../../constant'], function(angular, constant) {
 
 	var appId = constant.appId;
     return angular.module(appId + '.home.detail')
-    .controller(appId + '.detailCtrl', ['$scope', '$stateParams', 'CommonUtil', appId + '.dataHelper', function($scope, $stateParams, CommonUtil, dataHelper) {
+    .controller(appId + '.detailCtrl', ['$scope', '$stateParams', 'CommonUtil', appId + '.dataHelper', appId + '.gridHelper',function($scope, $stateParams, CommonUtil, dataHelper, gridHelper) {
 
     	//var $parentScope = $scope.$parent;
 
@@ -16,18 +16,16 @@ define(['angular', '../../../constant'], function(angular, constant) {
         	// make sure projects tree data has benn loaded
             dataHelper.getProjectTree().then(function(data){
                 var project = dataHelper.getProject(projectId);
-                $scope.selectedBuild['project'] = project;
 
 	            if(project) {
-	            	// get build data
+	            	//get build data
 	            	dataHelper.getBuildTree(projectId).then(function(buildTreeData) {
 
+                        var build = null;
 	            		// find curren build 
 	                    for(var i=0, len=buildTreeData.length; i<len; i++) {
-	                    	var build = buildTreeData[i].build;
-	                        if(build.id == buildId) {
-	                            $scope.selectedBuild['build'] = build;
-	                            $scope.selectedBuild['buildLabel'] = dataHelper.getProjectLabel(project)+' ' + build['build'];
+	                        if(buildTreeData[i].build.id == buildId) {
+	                            build = buildTreeData[i].build;
 	                            break;
 	                        }
 	                    }
@@ -40,15 +38,27 @@ define(['angular', '../../../constant'], function(angular, constant) {
 	                    }
 
 	                    var baseList = [];
+                        var base= null;
 	                    for(var j=i+1; j<len; j++) {
-	                    	var base = buildTreeData[j].build;
-	                        baseList.push(base);
-	                        if(baseId && (baseId == base.id)) {
-	                            $scope.selectedBuild['base'] = base;
+	                    	var tempBase = buildTreeData[j].build;
+	                        baseList.push(tempBase);
+	                        if(baseId && (baseId == tempBase.id)) {
+	                           base = tempBase;
 	                        } 
 	                    }
-	                    $scope.selectedBuild["baseList"] = baseList;
-	                    $scope.$emit('loaded');
+
+                        // get build detail data
+                        var buildDetail = baseId? dataHelper.getBuildDiff(buildId, baseId) : dataHelper.getBuildDetail(buildId);
+
+                        buildDetail.then(function(data){
+                            $scope.$emit('loaded');
+                            if(!data) return;
+
+                            updateSelectedBuild(project, build, base, baseList, data.data);
+                            updateColumns(data.langs);
+                            gridHelper.filterGridData($scope.selectedBuild,$scope.gridOptions);
+                        });
+	                    
 	                });
 	            } else {
 	            	$scope.$emit('loaded');
@@ -57,6 +67,32 @@ define(['angular', '../../../constant'], function(angular, constant) {
             });
         }
 
+        var updateSelectedBuild = function(project, build, base, baseList,data) {
+            //reset info in selectedBuild
+            $scope.selectedBuild = $scope.$parent.selectedBuild = angular.extend({}, $scope.selectedBuild, {
+                project: project,
+                build: build,
+                buildLabel: dataHelper.getProjectLabel(project)+' ' + build['build'],
+                base: base,
+                baseList: baseList,
+                originalData: data
+            });
+        }
+
+        var updateColumns = function(langs) {
+            var newColumns = [].concat([gridHelper.newIssueCol(), 
+                gridHelper.newKeyCol()]);
+            var checkedLangs = [];
+            angular.forEach(langs, function(lang) {
+                var col = gridHelper.newLangColumn(lang);
+                newColumns.push(col);
+                checkedLangs.push(col);
+            });
+
+            $scope.selectedBuild['colConfig'] = newColumns;
+            $scope.selectedBuild['showLangs'] = checkedLangs;
+            $scope.gridOptions.columns = newColumns;
+        };
 
     }]);
 });

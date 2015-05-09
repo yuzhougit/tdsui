@@ -42,7 +42,7 @@ define(['angular',
             $scope.isLoading = false;
 
             $scope.$on("loading", function() {
-                CommonUtil.indicator(appId, '', null, 'lg');
+                CommonUtil.indicator(appId, 'loading data, please wait...', null, 'lg'); // TODO: check why message doesn't work
                 $scope.isLoading = true;
             });
 

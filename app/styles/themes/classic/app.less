@@ -4,6 +4,20 @@
 
 	&.tdsui, .tdsui {
 
+		.tooltip-inner {
+			text-align: left;
+			max-width: 350px;
+
+			a {
+				&:link {
+					color: yellow;
+				}
+				&:visited {
+					color: green;
+				}
+			}
+		}
+
 		.mark-canvas {
 			background: rgba(0,0,0,.5);
 
@@ -29,6 +43,49 @@
 				}
 				.panel-title.pull-right {
 					margin-left: 10px;
+				}
+			}
+
+			& > .panel-body {
+				padding: 5px;
+
+				& > .tds-home-detail-panel {
+					border: 1px solid lightgray;
+					border-radius: 5px;
+					
+					& > .panel-heading {
+						position: relative;
+						border-bottom: 1px solid gray;
+
+						.input-sm {
+							height: 20px;
+							min-width: 250px;
+							padding: 2px 5px;
+							border-radius: 2px;
+						}
+
+						.pull-right {
+							margin-left: 10px;
+						}
+					}
+
+					& > #detail-grid {
+						min-height: 300px;
+						padding: 0px;
+						//border-top: 1px solid gray;
+						& .slick-headerrow {
+							overflow: hidden !important;
+						}
+
+						.changed {
+							color: red;
+							font-weight: bold;
+						}
+
+						.hightlight {
+							background: pink;
+						}
+					}
 				}
 			}
 
