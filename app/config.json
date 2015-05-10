@@ -18,6 +18,9 @@
           "url" : "?project&build&base",
           "controller": "tdsui.detailCtrl",
           "template" : false
-        }]
-    }]
+      }]
+  },{
+    "name": "admin",
+    "url": "/admin"
+  }]
 }
