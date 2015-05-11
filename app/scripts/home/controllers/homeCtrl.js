@@ -7,6 +7,9 @@ define(['angular', '../../../constant'], function(angular,constant){
 
 	return ['$scope', '$state', 'CommonUtil', appId + '.dataHelper', appId + '.gridHelper', function($scope, $state, CommonUtil, dataHelper, gridHelper) {
 
+        var controllerName  = appId+ '.homeCtrl';
+        _log_.d('Enter into the function: ' +  controllerName);
+
 		// current build config options
         $scope.selectedBuild = {
             project: null,
@@ -46,11 +49,12 @@ define(['angular', '../../../constant'], function(angular,constant){
                 'data' : function (obj, callback) {
                     var me = this;
                     if(obj.id === '#') { // root node
-                        // get all project data
-                        dataHelper.getProjectTree().then(function(data){
+                        _log_.d('get all project data');
+                        dataHelper.getProjectTree(true).then(function(data){ // force reload project tree when enter home every time
                             callback.call(me, data);
                         });
                     } else {
+                        _log_.d('get build data for project:' + obj.id);
                         dataHelper.getBuildTree(obj.id).then(function(data){
                             callback.call(me, data);
                         });
@@ -67,6 +71,7 @@ define(['angular', '../../../constant'], function(angular,constant){
         };
 
         $scope.onInitTree = function(tree) {
+            _log_.d('The project tree is inited');
             $scope.projectTree = tree;
         };
 

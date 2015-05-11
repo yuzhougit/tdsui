@@ -16,25 +16,48 @@ define(['angular',
 
         return angular.module(moduleName, [CommonUtil.name, treeView.name, services.name], function(){
             // funtion when create module
-        }).config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+        }).config(['$stateProvider','$urlRouterProvider', 'RestangularProvider', "$httpProvider", function($stateProvider,$urlRouterProvider, RestangularProvider, $httpProvider) {
+
+            RestangularProvider.setDefaultHttpFields({
+                'timeout' : 1000000
+            });
+
+            $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+            $httpProvider.defaults.transformRequest = [function(data) {
+                return angular.isObject(data) && String(data) !== '[object File]' ? $.param(data) : data;
+            }];
+
             // config function of module
         }]).run(['$rootScope', '$state', '$stateParams', function($rootScope, $state, $stateParams) {
             // run function of module
         }]).controller(moduleName + 'Ctrl', ['$scope', '$element', '$state', '$stateParams','$q', appId+'.dataHelper', 'CommonUtil', function($scope, $element, $state,$stateParams,$q, dataHelper, CommonUtil) {
+
+            $scope.alerts = [];
+
+            $scope.addAlert = function(type, message) {
+                $scope.alerts.push({type: type, msg: message});
+            };
+
+            $scope.closeAlert = function(index) {
+                $scope.alerts.splice(index, 1);
+            };
+
 
             // process event when state change
             $scope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
 
                 _log_.d('state changed to :' + toState.name);
 
+                
                 switch(toState.name) {
                     case moduleName+'Home':
                     case moduleName+'Detail':
-                        $scope.selectedItem.name = toState.name;
+                        $scope.$toggleSelectedItem(toState.name);
                         break;
                     default:
                         // jump to home when app module 
-                        //$state.go(moduleName+'Home');
+                        $scope.$toggleSelectedItem(toState.name);
                         break;
                 }
             });

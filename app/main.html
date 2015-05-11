@@ -1,6 +1,8 @@
 <div ng-controller="tdsuiCtrl" class="tds-root">
 
   <!-- <div class="row ng-class: isLoading?'loading':'';"></div> -->
+
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   
   <div ui-view class="container-fluid tds-view">{{welcome}}</div>
 

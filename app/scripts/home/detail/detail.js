@@ -4,6 +4,9 @@ define(['angular', '../../../constant'], function(angular, constant) {
     return angular.module(appId + '.home.detail')
     .controller(appId + '.detailCtrl', ['$scope', '$stateParams', 'CommonUtil', appId + '.dataHelper', appId + '.gridHelper',function($scope, $stateParams, CommonUtil, dataHelper, gridHelper) {
 
+        var controllerName  = appId+ '.detailCtrl';
+        _log_.d('Enter into the function: ' +  controllerName);
+
     	//var $parentScope = $scope.$parent;
 
     	var projectId = $stateParams['project'];
