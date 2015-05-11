@@ -75,13 +75,15 @@
 	                        <!--
 	                        <td>{{item.state}}</td>-->
 	                        <td>
-	                            <button type="button" class="btn btn-danger" ng-click="deleteProject(item)">
+	                            <button type="button" class="btn btn-danger btn-sm" ng-show="false" ng-click="deleteProject(item)">
 	                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 	                            </button>
-	                            <button type="button" class="btn btn-warning" ng-click="editProject(item)">
-	                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	                            <button type="button" class="btn btn-warning btn-sm" ng-click="editProject(item)">
+	                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit
 	                            </button>
-	                            <a class="btn btn-primary" href="${ctx}/build?projectId={{item.id}}" role="button"> Build...</a>
+	                            <button type="button" class="btn btn-default btn-sm" ng-click="adminBuilds(item)">
+	                                <span class="fa fa-gear" aria-hidden="true"></span> Builds...
+	                            </button>
 	                        </td>
 	                    </tr>
 	                </table>
@@ -89,7 +91,7 @@
 			</div>
 		</tab>
 		<tab heading="Builds">
-			<div class="well">PlaceHolder for Builds</div>
+			<div class="well" ng-hide="currentProject"> Please select a project first </div>
 		</tab>
 	</tabset>
 </div>
