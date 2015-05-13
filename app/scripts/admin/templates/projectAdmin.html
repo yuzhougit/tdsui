@@ -1,0 +1,90 @@
+<div class="panel panel-default well">
+	<div class="panel-body form-horizontal">
+
+		<div class="form-group" ng-show="selectedProject.id">
+			<label for="projectId" class="col-sm-2 control-label">ID:</label>
+			<div class="col-sm-8">
+				<input id="projectId" class="form-control" ng-model="selectedProject.id" ng-readonly="true">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="product" class="col-sm-2 control-label">Product:</label>
+			<div class="col-sm-8">
+				<input id="product" class="form-control" ng-model="selectedProject.product">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="platform" class="col-sm-2 control-label">Platform:</label>
+			<div class="col-sm-8">
+				<select id="platform" class="form-control" ng-model="selectedProject.platform">
+					<option value="iOS">iOS</option>
+					<option value="Android">Android</option>
+					<option value="WinPhone">WinPhone</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="release" class="col-sm-2 control-label">Release:</label>
+			<div class="col-sm-8">
+				<input id="release" class="form-control" ng-model="selectedProject.release">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-8">
+				<button type="button" class="btn btn-primary" ng-hide="selectedProject.id" ng-click="addProject(selectedProject)"> Add </button>
+				<button type="button" class="btn btn-primary" ng-show="selectedProject.id" ng-click="updateProject(selectedProject)"> Update </button>
+				<button type="button" class="btn btn-default" ng-show="selectedProject.id" ng-click="cancelEdit()"> Cancel </button>
+			</div>
+		</div>
+
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>ID</th>
+					<th>Product</th>
+					<th>Platform</th>
+					<th>Release</th>
+					<th>Owner</th>
+					<th>Build Count</th>
+	                            <!--
+	                            <th>State</th>-->
+	                            <th></th>
+	                        </tr>
+	                    </thead>
+	                    <tr ng-repeat="item in projects">
+	                    	<td>{{$index + 1}}</td>
+	                    	<td>{{item.id}}</td>
+	                    	<td>{{item.product}}</td>
+	                    	<td>{{item.platform}}</td>
+	                    	<td>{{item.release}}</td>
+	                    	<td>{{item.ownerName}}({{item.ownerMail}})</td>
+	                    	<td>{{item.buildCount}}</td>
+	                        <!--
+	                        <td>{{item.state}}</td>-->
+	                        <td>
+	                        	<button type="button" class="btn btn-danger btn-sm" ng-click="deleteProject(item)">
+	                        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+	                        	</button>
+	                        	<button type="button" class="btn btn-danger btn-sm" ng-show="false" ng-click="deleteProject(item)">
+	                        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	                        	</button>
+	                        	<button type="button" class="btn btn-warning btn-sm" ng-click="editProject(item)">
+	                        		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit
+	                        	</button>
+	                        	<button type="button" class="btn btn-default btn-sm" ng-click="adminBuilds(item)">
+	                        		<span class="fa fa-gear" aria-hidden="true"></span> Builds...
+	                        	</button>
+	                        </td>
+	                    </tr>
+	                </table>
+	            </div>
+	        </div>

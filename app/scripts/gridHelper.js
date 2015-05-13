@@ -249,7 +249,7 @@ define([],function(){
             var baseURL = "http://mindtouchgs.eng.citrite.net/Process/G11n_Development/I18n_Process/I18n_Platform/z_Error_Code/Mirror_Error_Code";
 
             var codeMapping = {
-                2001: 'Key not found in l10n resource.',
+                2001: 'Resource not found.',
                 2003: 'Not translated.',
                 2008: 'Incorret count of % .',
                 2010: 'L10n text is 2 times longer than EN text.',

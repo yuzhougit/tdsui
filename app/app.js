@@ -19,7 +19,7 @@ define(['angular',
         }).config(['$stateProvider','$urlRouterProvider', 'RestangularProvider', "$httpProvider", function($stateProvider,$urlRouterProvider, RestangularProvider, $httpProvider) {
 
             RestangularProvider.setDefaultHttpFields({
-                'timeout' : 1000000
+                'timeout' : 1000000 // 1000 seconds
             });
 
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -42,6 +42,16 @@ define(['angular',
             $scope.closeAlert = function(index) {
                 $scope.alerts.splice(index, 1);
             };
+
+            $scope.checkData = function(data) {
+                if(data && data.errMsg) {
+                    $scope.addAlert('danger', data.errMsg);
+                    return false;
+                }
+
+                return true;
+            }
+            
 
 
             // process event when state change

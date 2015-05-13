@@ -139,13 +139,29 @@ define([], function(){
                     }  
                 };
 
+
+
                 return {
                     getProject: getProject,
                     getProjectLabel: getProjectLabel,
                     getProjectTree: getProjectTree,
                     getBuildTree: getBuildTree,
                     getBuildDetail: getBuildDetail,
-                    getBuildDiff: getBuildDiff
+                    getBuildDiff: getBuildDiff,
+                    "extractEnclosed" : function(name) {
+
+                        var str = name || "";
+                        var pattern = /[-|_][\d](.*)[\d][\.|-|_]/;
+                        var result = name.match(pattern);
+
+                        if(result && result.length > 1) {
+                            
+                            var ret = result[0];
+                            return ret.substring(1,ret.length-1);
+                        }
+                        
+                        return "";
+                    }
                 };
             }
     ];

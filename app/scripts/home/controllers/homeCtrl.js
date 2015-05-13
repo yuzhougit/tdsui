@@ -134,6 +134,8 @@ define(['angular', '../../../constant'], function(angular,constant){
                 onClick: function(e, grid) {
 
                     var args = grid.getCellFromEvent(e);
+                    if(!args || !args.row) return;
+
                     var data = grid.getDataItem(args.row);
                     var field = grid.getColumns()[args.cell].field;
                     var cellData = data[field];
@@ -232,7 +234,7 @@ define(['angular', '../../../constant'], function(angular,constant){
             });
 
             $scope.gridOptions.columns = newColumns;
-            $scope.selectedBuild['showLangs'];
+            $scope.selectedBuild['showLangs'] = checkedLangs;
         };
 
         $scope.globalFilter = function () {

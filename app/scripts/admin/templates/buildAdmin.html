@@ -1,0 +1,80 @@
+<div class="well" ng-hide="currentProject"> Please select a project first </div>
+<div class="panel panel-default well" ng-show="currentProject">
+	<div class="panel-body form-horizontal">
+		<div class="form-group" ng-show="selectedBuild.id">
+			<label for="product" class="col-sm-2 control-label">ID:</label>
+			<div class="col-sm-8">
+				<input id="product" class="form-control" ng-model="selectedBuild.id" ng-readonly="true">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="project" class="col-sm-2 control-label">Project:</label>
+			<div class="col-sm-8">
+				<input id="project" class="form-control" ng-model="currentProjectLabel" readonly="readonly">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="build" class="col-sm-2 control-label">Build#:</label>
+			<div class="col-sm-8">
+				<input id="build" class="form-control" ng-model="selectedBuild.build">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="buildFile" class="col-sm-2 control-label">Build File:</label>
+			<div class="col-sm-8">
+				<input id="buildFile" class="form-control" type="file" file-model="selectedBuild.buildFile">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-8">
+				<button type="button" class="btn btn-primary" ng-hide="selectedBuild.id" ng-click="addBuild(selectedBuild)"> Add </button>
+				<button type="button" class="btn btn-primary" ng-show="selectedBuild.id" ng-click="updateBuild(selectedBuild)"> Update </button>
+				<button type="button" class="btn btn-default" ng-show="selectedBuild.id" ng-click="cancelEdit()"> Cancel </button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="panel panel-default" ng-show="currentProject">
+	<div class="panel-body">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>ID</th>
+					<th>Build</th>
+					<th>File</th>
+					<th>Build Time</th>
+					<th>Create Time</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="item in Builds">
+					<td>{{$index + 1}}</td>
+					<td>{{item.id}}</td>
+					<td>{{item.build}}</td>
+					<td>
+						{{item.buildFilePath}}
+						<button ng-show="item.buildFilePath" type="button" class="btn btn-sm btn-success" ng-click="reExtractBuild(item)">
+							Reextract
+						</button>
+					</td>
+					<td>{{item.buildTime}}</td>
+					<td>{{item.createTime}}</td>
+					<td>
+						<button type="button" class="btn btn-danger btn-sm" ng-click="deleteBuild(item)">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+						</button>
+						<button type="button" class="btn btn-warning btn-sm" ng-click="editBuild(item)">
+							<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

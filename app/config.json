@@ -21,6 +21,6 @@
       }]
   },{
     "name": "admin",
-    "url": "/admin"
+    "url": "/admin?project"
   }]
 }
