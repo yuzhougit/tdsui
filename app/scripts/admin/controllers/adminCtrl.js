@@ -54,7 +54,8 @@ define(['angular', '../../../constant'], function(angular,constant){
             project.put({
                 product: project['product'],
                 release: project['release'],
-                platform: project['platform']
+                platform: project['platform'],
+                receiver: project['receiver']
             }).then(function(data){
 
                 if($scope.checkData(data)) {
@@ -180,6 +181,36 @@ define(['angular', '../../../constant'], function(angular,constant){
             
         }
 
+        $scope.editBuild = function(build) {
+        	$scope.selectedBuild = Restangular.copy(build);
+        }
+
+        $scope.cancelEditBuild = function() {
+        	$scope.selectedBuild = {
+	            projectId: $scope.currentProject.id
+	        };
+        }
+
+        $scope.updateBuild = function(build) {
+
+            build.put({
+            	projectId: build['projectId'],
+                build: build['build'],
+            }).then(function(data){
+
+                if($scope.checkData(data)) {
+
+	                for(var index=0; index < $scope.Builds.length; index++) {
+	                    if($scope.Builds[index].id == build.id) {
+	                        $scope.Builds.splice(index,1,data);
+	                        break;
+	                    }
+	                }
+
+	                $scope.cancelEditBuild();
+	            }
+            });
+        }
         $scope.deleteBuild = function (build) {
 
         	$scope.$emit('loading');
@@ -208,6 +239,16 @@ define(['angular', '../../../constant'], function(angular,constant){
         		if($scope.checkData(data)) {}
         		$scope.$emit('loaded');
         	});    
+        }
+
+        $scope.clearBuildCache = function(build) {
+
+            $scope.$emit('loading');
+            Restangular.one('build/clearCache', build.id).put().then(function(){
+
+                if($scope.checkData(data)) {}
+                $scope.$emit('loaded');
+            });    
         }
 
         $scope.$watch("selectedBuild.buildFile", function(newValue, oldValue) {

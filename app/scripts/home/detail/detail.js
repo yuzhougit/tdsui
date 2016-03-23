@@ -36,6 +36,7 @@ define(['angular', '../../../constant'], function(angular, constant) {
 	                    // validate if the buildId in param is not found in backend
 	                    if(i == len) {
 	                        _log_.e('build ' + buildId + ' is not found');
+                            $scope.addAlert('build ' + buildId + ' is not found');
 	                        $scope.$emit('loaded');
 	                        return;
 	                    }
@@ -66,6 +67,7 @@ define(['angular', '../../../constant'], function(angular, constant) {
 	            } else {
 	            	$scope.$emit('loaded');
 	            	_log_.e('Project ' + projectId + ' is not found');
+                    $scope.addAlert('Project ' + projectId + ' is not found');
 	            }
             });
         }

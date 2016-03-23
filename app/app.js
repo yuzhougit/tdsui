@@ -35,7 +35,8 @@ define(['angular',
 
             $scope.alerts = [];
 
-            $scope.addAlert = function(type, message) {
+            $scope.addAlert = function(message, type) {
+                if(!angular.isString(type)) { type = 'danger';}
                 $scope.alerts.push({type: type, msg: message});
             };
 
@@ -45,7 +46,7 @@ define(['angular',
 
             $scope.checkData = function(data) {
                 if(data && data.errMsg) {
-                    $scope.addAlert('danger', data.errMsg);
+                    $scope.addAlert(data.errMsg, 'danger');
                     return false;
                 }
 
@@ -53,6 +54,9 @@ define(['angular',
             }
             
 
+            $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+                _log_.d('State changed to ' + toState.name + ' start');
+            });
 
             // process event when state change
             $scope.$on('$stateChangeSuccess',function(event, toState, toParams, fromState, fromParams){
@@ -61,6 +65,9 @@ define(['angular',
 
                 
                 switch(toState.name) {
+                    case moduleName:
+                        $state.go(moduleName+'Home');
+                        break;
                     case moduleName+'Home':
                     case moduleName+'Detail':
                         $scope.$toggleSelectedItem(toState.name);

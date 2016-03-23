@@ -154,24 +154,39 @@ define([],function(){
         };
 
         // filter alerts by showed langs
-        var filterAlerts = function(issue, langs) {
+        /*
+            issue: Map, lang id, 
+        */
+        var filterAlerts = function(issue) {
+
+            if(!issue) return [];
+
+            var langCols = me.selectedBuild? me.selectedBuild['showLangs']:[];
             var issues = [];
-            // TODO: the logic need to be updated
-            /*
-            var issueLangs = issue? Object.keys(issue) : [];
-            angular.forEach(issueLangs, function(issueLang) {
-
-                if(showLangs.indexOf(issueLang) == -1) {
-                    return;
+            angular.forEach(langCols, function(langCol){
+                var langIssues = issue[langCol.id];
+                if(langIssues && langIssues.length > 0) {
+                    angular.forEach(langIssues, function(issueCode){
+                        issues.push({
+                            code: issueCode,
+                            lang: langCol.name
+                        });
+                    });
                 }
-                issues = issues.concat(issue[issueLang]);
-            });*/
-
+            });
             return issues;
         };
 
         var checkAlert = function(issue, langs) {
-            return filterAlerts(issue, langs).length > 0;
+            if(!issue) return false;
+            
+            for(var i=0, n=langs.length; i<n; i++){
+                var langId = langs[i].id;
+                if(issue[langId]) {
+                    return true;
+                }
+            }
+            return false;
         };
 
         var checkExistScreen = function(cellData) {
@@ -180,7 +195,12 @@ define([],function(){
                     (cellData.preScreenList && cellData.preScreenList.length > 0))
         };
 
+        var me = this;
+
         var filterGridData = function(selectedBuild, gridOptions) {
+            me.selectedBuild = selectedBuild;
+            me.gridOptions = gridOptions;
+
             var data = selectedBuild['originalData'];
             var langs = selectedBuild['showLangs'];
             var filterData = [];

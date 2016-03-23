@@ -11,14 +11,14 @@
 		<div class="form-group">
 			<label for="product" class="col-sm-2 control-label">Product:</label>
 			<div class="col-sm-8">
-				<input id="product" class="form-control" ng-model="selectedProject.product">
+				<input id="product" class="form-control" ng-model="selectedProject.product" placeholder="input product name">
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="platform" class="col-sm-2 control-label">Platform:</label>
 			<div class="col-sm-8">
-				<select id="platform" class="form-control" ng-model="selectedProject.platform">
+				<select id="platform" class="form-control" ng-model="selectedProject.platform" placeholder="select OS platform">
 					<option value="iOS">iOS</option>
 					<option value="Android">Android</option>
 					<option value="WinPhone">WinPhone</option>
@@ -29,7 +29,14 @@
 		<div class="form-group">
 			<label for="release" class="col-sm-2 control-label">Release:</label>
 			<div class="col-sm-8">
-				<input id="release" class="form-control" ng-model="selectedProject.release">
+				<input id="release" class="form-control" ng-model="selectedProject.release" placeholder="input release code">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="receiver" class="col-sm-2 control-label">Receiver:</label>
+			<div class="col-sm-8">
+				<input id="receiver" class="form-control" ng-model="selectedProject.receiver" placeholder="input emails separated by ; to receive build update notification">
 			</div>
 		</div>
 
@@ -55,36 +62,34 @@
 					<th>Release</th>
 					<th>Owner</th>
 					<th>Build Count</th>
-	                            <!--
-	                            <th>State</th>-->
-	                            <th></th>
-	                        </tr>
-	                    </thead>
-	                    <tr ng-repeat="item in projects">
-	                    	<td>{{$index + 1}}</td>
-	                    	<td>{{item.id}}</td>
-	                    	<td>{{item.product}}</td>
-	                    	<td>{{item.platform}}</td>
-	                    	<td>{{item.release}}</td>
-	                    	<td>{{item.ownerName}}({{item.ownerMail}})</td>
-	                    	<td>{{item.buildCount}}</td>
-	                        <!--
-	                        <td>{{item.state}}</td>-->
-	                        <td>
-	                        	<button type="button" class="btn btn-danger btn-sm" ng-click="deleteProject(item)">
-	                        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
-	                        	</button>
-	                        	<button type="button" class="btn btn-danger btn-sm" ng-show="false" ng-click="deleteProject(item)">
-	                        		<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-	                        	</button>
-	                        	<button type="button" class="btn btn-warning btn-sm" ng-click="editProject(item)">
-	                        		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit
-	                        	</button>
-	                        	<button type="button" class="btn btn-default btn-sm" ng-click="adminBuilds(item)">
-	                        		<span class="fa fa-gear" aria-hidden="true"></span> Builds...
-	                        	</button>
-	                        </td>
-	                    </tr>
-	                </table>
-	            </div>
-	        </div>
+					<th>Receiver</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tr ng-repeat="item in projects">
+				<td>{{$index + 1}}</td>
+				<td>{{item.id}}</td>
+				<td>{{item.product}}</td>
+				<td>{{item.platform}}</td>
+				<td>{{item.release}}</td>
+				<td>{{item.ownerName}}({{item.ownerMail}})</td>
+				<td>{{item.buildCount}}</td>
+				<td>{{item.receiver}}</td>
+				<td>
+					<button type="button" class="btn btn-danger btn-sm" ng-click="deleteProject(item)">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+					</button>
+					<button type="button" class="btn btn-danger btn-sm" ng-show="false" ng-click="deleteProject(item)">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-warning btn-sm" ng-click="editProject(item)">
+						<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Edit
+					</button>
+					<button type="button" class="btn btn-default btn-sm" ng-click="adminBuilds(item)">
+						<span class="fa fa-gear" aria-hidden="true"></span> Builds...
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

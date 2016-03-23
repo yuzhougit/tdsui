@@ -66,6 +66,7 @@ define(['angular'], function(angular) {
                     // validate if the buildId in param is not found in backend
                     if(i == len) {
                         _log_.e('build with id ' + buildId + ' is not found');
+                        $scope.addAlert('build with id ' + buildId + ' is not found');
                         $scope.$emit('loaded');
                         $scope.selectedBuild.isLoading = false;
                         return;
